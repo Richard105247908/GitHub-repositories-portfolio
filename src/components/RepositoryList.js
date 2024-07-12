@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchRepositories } from '../services/githubService';
+import { Link } from 'react-router-dom';
+import SearchFilter from './SearchFilter';
 
 const RepositoryList = () => {
   const [repositories, setRepositories] = useState([]);
@@ -24,26 +26,29 @@ const RepositoryList = () => {
   }, [page, query]);
 
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="Search Repositories"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
-      <button onClick={() => setPage(page - 1)} disabled={page === 1}>
-        Previous
-      </button>
-      <button onClick={() => setPage(page + 1)}>
-        Next
-      </button>
-      {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}
-      <ul>
+    <div className="container">
+      <h1 className="header">GitHub Repositories</h1>
+      <SearchFilter query={query} setQuery={setQuery} />
+      <div className="pagination">
+        <button onClick={() => setPage(page - 1)} disabled={page === 1} className="button">
+          Previous
+        </button>
+        <button onClick={() => setPage(page + 1)} className="button">
+          Next
+        </button>
+      </div>
+      {loading && <p className="loading">Loading...</p>}
+      {error && <p className="error">Error: {error}</p>}
+      <div className="repo-list">
         {repositories.map((repo) => (
-          <li key={repo.id}>{repo.name}</li>
+          <div key={repo.id} className="repo-item">
+            <Link to={`/repo/${repo.name}`}>
+              <h2>{repo.name}</h2>
+              <p>{repo.description}</p>
+            </Link>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
