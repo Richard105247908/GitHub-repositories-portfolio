@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchRepositories } from '../services/githubService';
 import { Link } from 'react-router-dom';
 import SearchFilter from './SearchFilter';
+import githubImage from '../githubImage/kisspng-github-.jpg';
 
 const RepositoryList = () => {
   const [repositories, setRepositories] = useState([]);
@@ -28,6 +29,9 @@ const RepositoryList = () => {
   return (
     <div className="container">
       <h1 className="header">GitHub Repositories</h1>
+      <div className="image-container mb-4">
+        <img src={githubImage} alt="GitHub" className="github-image mx-auto" />
+      </div>
       <SearchFilter query={query} setQuery={setQuery} />
       <div className="pagination">
         <button onClick={() => setPage(page - 1)} disabled={page === 1} className="button">

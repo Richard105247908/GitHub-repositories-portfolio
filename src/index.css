@@ -15,12 +15,20 @@ body {
   @apply text-3xl font-bold mb-6 text-center;
 }
 
+.image-container {
+  @apply flex justify-center;
+}
+
+.github-image {
+  @apply max-w-full h-auto w-1/2;
+}
+
 .search-input {
   @apply w-full p-2 border border-gray-300 rounded mb-4;
 }
 
 .button {
-  @apply bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600;
+  @apply bg-blue-500 text-white py-2 px-4 rounded transition duration-300 ease-in-out transform hover:bg-blue-600 hover:scale-105;
 }
 
 .repo-list {
@@ -28,7 +36,7 @@ body {
 }
 
 .repo-item {
-  @apply border-b border-gray-200 p-4 last:border-0;
+  @apply border-b border-gray-200 p-4 last:border-0 transition duration-300 ease-in-out transform hover:bg-gray-50 hover:scale-105;
 }
 
 .repo-item h2 {
