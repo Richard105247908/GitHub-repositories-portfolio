@@ -2,19 +2,16 @@
 const GITHUB_USERNAME = 'Richard105247908';
 
 export const fetchRepositories = async (page = 1, query = '') => {
-  const response = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?page=${page}&per_page=10&q=${query}`);
-  if (!response.ok) {
-    throw new Error('Failed to fetch repositories');
-  }
+  const url = query
+    ? `https://api.github.com/search/repositories?q=user:${GITHUB_USERNAME}+${query}&page=${page}&per_page=10`
+    : `https://api.github.com/users/${GITHUB_USERNAME}/repos?page=${page}&per_page=10`;
+  const response = await fetch(url);
   const data = await response.json();
-  return data;
+  return query ? data.items : data;
 };
 
 export const fetchRepositoryDetails = async (repoName) => {
   const response = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${repoName}`);
-  if (!response.ok) {
-    throw new Error('Failed to fetch repository details');
-  }
   const data = await response.json();
   return data;
 };
